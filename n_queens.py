@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[85]:
+# In[61]:
 
 
 from z3 import *
@@ -29,6 +29,12 @@ import sys
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
+
+# TODO
+    # fix repo
+    # seperate functions
+    # document better
+    # create utility file
 
 
 def nQueens(N):
@@ -69,7 +75,7 @@ def nQueens(N):
         time.sleep(0.1)
         Solutions = genericSolver.model()
 
-    print(f'Time Taken: {time.time() - start}')
+    print(f'Time Taken: {time.time() - start}', end = ' seconds')
         
     display(Solutions, N)
 
@@ -92,15 +98,35 @@ def progressbar(progressVal, prefix="", size=60, file=sys.stdout):
 def display(chessBoard, N):
     print('\n' * 4)
     
-    for i in range(0,N):
-        print('\t')
-        print (( ('    ' + '-') * N))
-    
+
+    sortedList = [0] * N
     for d in chessBoard.decls():
-        print ("%s = %s" % (d.name(), chessBoard[d]))
+        sortedList[int(d.name()[1:])] = chessBoard[d]
+    #print(sortedList)
+    if (N <= 16):
+        print('\n\n\n')
+        for i in range(1,N+1):
+
+            for j in range(1,N+1):
+                if i == sortedList[j-1]:
+                    print('\tQ\t', end = '')
+                else:
+                    print('\t-\t', end = '')
+
+            print('\n')
         
+    else:
+        print('Warning: Your input is too large')
+        print('Showing in key:mapping form instead!\n')
+        i = 1
+        for item in sortedList:
+            print('Coloumn ', end = '')
+            print(i, end = '\t') 
+            i+=1
+            print(item)
+
 def main():
-    nQueens(4)
+    nQueens(17)
 
 main()
 
