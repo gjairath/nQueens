@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[61]:
+# In[ ]:
 
 
 from z3 import *
@@ -126,8 +126,18 @@ def display(chessBoard, N):
             print(item)
 
 def main():
-    nQueens(17)
+    inputChoice = input('Enter number of queens: ')
+    assert(int(inputChoice) > 3), 'Enter a number of queens greater than 3!'
+    
+    nQueens(int(inputChoice))
 
+    print('Try again?')
+    inputChoice2 = input('1 for Yes \n2 for No \n Enter choice:')
+    print ('\n')
+    if (int(inputChoice2) == 1):
+        main()
+    else:
+        exit()
 main()
 
 
